@@ -68,6 +68,20 @@ describe("P1 entity drift", () => {
     expect(hitsOf("P1", r.hits)).toHaveLength(0);
   });
 
+  it("does not flag everyday 4-kanji compounds as proper nouns", () => {
+    // 日本語 is a common noun, not a proper noun; it should not generate
+    // a P1 hit even when paraphrased away.
+    const r = audit(
+      "日本語のドキュメントを更新した。",
+      "ドキュメントを更新した。",
+      ctx(),
+    );
+    const txt = hitsOf("P1", r.hits)
+      .map((h) => h.message)
+      .join("\n");
+    expect(txt).not.toContain("日本語");
+  });
+
   it("flags katakana proper nouns", () => {
     // The tokenizer segments by character class, so "カタカナ語" becomes a
     // katakana token "カタカナ" plus a kanji token "語"; the rule sees the
@@ -226,6 +240,15 @@ describe("P7 tone smoothing", () => {
     expect(hitsOf("P7", r.hits).length).toBeGreaterThan(0);
   });
 
+  it("does NOT fire on a plain Japanese declarative sentence", () => {
+    // Earlier versions matched the bare sentence-final `だ。`, which
+    // produced a P7 hit on every casual-tone Japanese sentence that
+    // happened to mention a soft modifier somewhere else in the
+    // rendered version.
+    const r = audit("彼は学生だ。", "彼は学生だと思われます。", ctx());
+    expect(hitsOf("P7", r.hits)).toHaveLength(0);
+  });
+
   it("notes when exclamation marks disappear", () => {
     const r = audit("Stop! Now!", "Please stop now.", ctx());
     const exHits = hitsOf("P7", r.hits).filter((h) =>
@@ -236,6 +259,18 @@ describe("P7 tone smoothing", () => {
 });
 
 // ---------- aggregation ----------------------------------------------------
+
+describe("dictionaries", () => {
+  it("does not contain user-stylistic Japanese hedges that leaked from a private corpus", () => {
+    // Earlier versions of hedges.yaml shipped 「個人的には」 / 「私見では」,
+    // which originated in a maintainer's personal writing and risked
+    // skewing detection toward that writer's idiolect.
+    const banned = ["個人的には", "私見では"];
+    for (const w of banned) {
+      expect(dicts.hedges.ja).not.toContain(w);
+    }
+  });
+});
 
 describe("audit() report shape", () => {
   it("counts hits per rule", () => {

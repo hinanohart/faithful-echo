@@ -23,6 +23,22 @@ import { tokenize } from "../tokenize.js";
  * proper nouns to a leading-capital heuristic.  We drop these from the
  * candidate set to avoid noise.
  */
+/**
+ * Frequent 4-or-more-kanji compounds that are everyday vocabulary in
+ * Japanese, not proper nouns.  Without this list, a P1 hit fires every
+ * time the rendered version paraphrases away a common term like
+ * 「日本語」.
+ */
+const KANJI_COMMON_NOUN_STOPWORDS = new Set<string>([
+  "日本語", "中国語", "韓国語", "英会話",
+  "経済成長", "経済政策", "国際関係", "社会問題",
+  "重要事項", "技術革新", "情報処理", "情報技術",
+  "個人情報", "公開情報", "顧客情報",
+  "現在進行", "過去現在", "未来予測",
+  "営業時間", "終了時間", "開始時間",
+  "学校教育", "義務教育", "高等教育",
+]);
+
 const SENTENCE_INITIAL_STOPWORDS = new Set([
   // Pronouns / determiners
   "I", "We", "They", "He", "She", "It", "You", "My", "Our", "Their",
@@ -57,7 +73,11 @@ function properNounCandidates(text: string): Set<string> {
     } else if (tok.kind === "kanji" && tok.text.length >= 4) {
       // Four-or-more-kanji compounds are usually named entities or terms
       // of art.  Two/three-kanji compounds catch too many common nouns.
-      out.add(tok.text);
+      // We still drop a small list of frequent 4-kanji compounds that
+      // are everyday vocabulary rather than proper nouns.
+      if (!KANJI_COMMON_NOUN_STOPWORDS.has(tok.text)) {
+        out.add(tok.text);
+      }
     }
   }
   return out;

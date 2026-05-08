@@ -19,7 +19,12 @@ const STRONG_MODALS_EN =
 const SOFT_MODALS_EN =
   /\b(may|might|could|should consider|tend to|often|sometimes|recommend(?:ed)?|suggest(?:ed)?)\b/i;
 
-const STRONG_JA = /(禁止|必須|必ず|絶対|してはならない|しなければならない|だ。|だ$)/;
+// Deontic / categorical Japanese markers.  We deliberately do *not*
+// match the bare sentence-final `だ。` / `だ$`, because that fires on
+// any Japanese declarative sentence ("彼は学生だ。") and produces a
+// flood of false positives.  The markers below are unambiguously
+// imperative or absolute.
+const STRONG_JA = /(禁止|必須|必ず|絶対|してはならない|しなければならない|べきだ)/;
 const SOFT_JA = /(推奨|お勧め|おすすめ|望ましい|することができます|するとよいでしょう|かもしれません)/;
 
 function exclamationCount(text: string): number {

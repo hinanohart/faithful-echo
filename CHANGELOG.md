@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **P1 false-positive on everyday 4-kanji compounds.**  Words like
+  「日本語」, 「中国語」, 「個人情報」 are common nouns in Japanese, not
+  proper nouns; earlier versions flagged them as P1 drift hits when
+  paraphrased away.  Added a `KANJI_COMMON_NOUN_STOPWORDS` list.
+- **P7 over-firing on plain Japanese declaratives.**  Earlier versions
+  treated the bare sentence-final 「だ。」 as a "strong tone" marker,
+  which produced a P7 hit on every casual-tone Japanese sentence.
+  P7 now requires an unambiguously deontic / categorical marker
+  (禁止 / 必須 / 必ず / 絶対 / してはならない / しなければならない / べきだ).
+
+### Removed
+- **`hedges.yaml`**: 「個人的には」 and 「私見では」 entries.  Both
+  originated in a maintainer's personal writing and risked skewing
+  detection toward that writer's idiolect; the rule still has plenty
+  of signal without them.
+
+### Added
+- README: an explicit comparison table covering Karpathy's K1 (pre-hoc),
+  generic critic agents, DeepEval's `FaithfulnessMetric`, and
+  Promptfoo's lexical assertions.  Makes the pre-hoc/post-hoc layer
+  split obvious so users can pick the right tool (or run several
+  alongside this one).
+- Tests covering the three behaviours above.
+
+
+
 ## [0.1.0] - 2026-05-08
 
 ### Added
