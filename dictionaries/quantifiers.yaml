@@ -1,0 +1,84 @@
+# Intensifiers: words that strengthen a claim.  When the source contains
+# one of these and the rendered version drops or weakens it, that's a P3
+# (quantifier drop) hit.
+#
+# Keep these dictionaries small and obvious.  Borderline words (e.g.
+# "very") are easy to drop accidentally during paraphrasing and would
+# inflate false positives if listed here as core intensifiers.
+#
+# License: Apache-2.0
+
+ja:
+  # Absolute / categorical
+  - 絶対
+  - 必ず
+  - 断じて
+  - 決して
+  - 全く
+  - 完全に
+  - 一切
+  - 全然
+  - まったく
+  - 一切合切
+
+  # Strong intensity
+  - 極めて
+  - 極端に
+  - 非常に
+  - 圧倒的に
+  - とてつもなく
+  - 著しく
+  - 極度に
+  - 並外れて
+
+  # Sweeping / totalising
+  - すべて
+  - 全部
+  - 全員
+  - 全て
+  - あらゆる
+  - 一人残らず
+  - 一つ残らず
+
+  # Negative absolutes (often softened by hedging)
+  - ありえない
+  - 有り得ない
+  - 論外
+  - 言語道断
+
+en:
+  # Absolute / categorical
+  - absolutely
+  - definitely
+  - certainly
+  - undeniably
+  - unquestionably
+  - undoubtedly
+  - inarguably
+  - never
+  - always
+  - completely
+  - entirely
+  - utterly
+  - wholly
+  - totally
+
+  # Strong intensity
+  - extremely
+  - exceedingly
+  - profoundly
+  - tremendously
+  - vastly
+  - overwhelmingly
+  - markedly
+  - drastically
+
+  # Sweeping
+  - all
+  - every
+  - everyone
+  - everything
+  - none
+  - no one
+  - nothing
+  - any

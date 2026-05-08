@@ -1,0 +1,67 @@
+# Specific → abstract pairs.  When the source uses a specific term and
+# the rendered version replaces it with an abstract one, that's a P5
+# (abstraction) hit.  Pairs only fire when the *specific* word appears
+# in the source AND the *abstract* word appears in the rendered text
+# (and the specific is gone), so a small dictionary of common pairs
+# is enough — we don't need a full hypernym tree.
+#
+# License: Apache-2.0
+
+pairs:
+  # Programming languages → programming language
+  - { specific: Python, abstract: programming language }
+  - { specific: TypeScript, abstract: programming language }
+  - { specific: JavaScript, abstract: programming language }
+  - { specific: Rust, abstract: programming language }
+  - { specific: Go, abstract: programming language }
+  - { specific: Java, abstract: programming language }
+  - { specific: C++, abstract: programming language }
+  - { specific: Bash, abstract: shell }
+  - { specific: zsh, abstract: shell }
+
+  # Frameworks → framework
+  - { specific: React, abstract: framework }
+  - { specific: Vue, abstract: framework }
+  - { specific: Django, abstract: framework }
+  - { specific: Rails, abstract: framework }
+  - { specific: Express, abstract: framework }
+  - { specific: Next.js, abstract: framework }
+
+  # Tools → tool
+  - { specific: Docker, abstract: container runtime }
+  - { specific: Podman, abstract: container runtime }
+  - { specific: Kubernetes, abstract: orchestrator }
+  - { specific: Postgres, abstract: database }
+  - { specific: PostgreSQL, abstract: database }
+  - { specific: MySQL, abstract: database }
+  - { specific: Redis, abstract: data store }
+  - { specific: SQLite, abstract: database }
+
+  # Numerics
+  - { specific: minutes, abstract: time }
+  - { specific: hours, abstract: time }
+  - { specific: seconds, abstract: time }
+  - { specific: bytes, abstract: size }
+  - { specific: megabytes, abstract: size }
+
+  # Colors → color
+  - { specific: red, abstract: color }
+  - { specific: blue, abstract: color }
+  - { specific: green, abstract: color }
+
+  # Animals → animal
+  - { specific: cat, abstract: animal }
+  - { specific: dog, abstract: animal }
+  - { specific: bird, abstract: animal }
+
+  # Japanese pairs (limited; project-specific dictionaries can extend)
+  - { specific: Python, abstract: 言語 }
+  - { specific: TypeScript, abstract: 言語 }
+  - { specific: 赤, abstract: 色 }
+  - { specific: 青, abstract: 色 }
+  - { specific: 緑, abstract: 色 }
+  - { specific: 犬, abstract: 動物 }
+  - { specific: 猫, abstract: 動物 }
+  - { specific: 数分, abstract: 時間 }
+  - { specific: 数時間, abstract: 時間 }
+  - { specific: 数秒, abstract: 時間 }

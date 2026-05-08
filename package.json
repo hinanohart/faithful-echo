@@ -1,0 +1,52 @@
+{
+  "name": "faithful-echo",
+  "version": "0.1.0",
+  "description": "Detect where an LLM softened, paraphrased, hedged, or numerically rounded a user's original wording. A Claude Code agent + standalone CLI.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "bin": {
+    "faithful-echo": "./dist/cli.js"
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "agents/",
+    "dictionaries/",
+    "README.md",
+    "README.ja.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json && chmod +x dist/cli.js",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint 'src/**/*.ts' 'tests/**/*.ts'",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run build && npm test"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "yaml": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.0",
+    "@typescript-eslint/parser": "^8.18.0",
+    "eslint": "^9.16.0",
+    "typescript": "^5.7.0",
+    "vitest": "^2.1.0"
+  },
+  "keywords": [
+    "claude-code",
+    "agent",
+    "llm",
+    "fidelity",
+    "sycophancy",
+    "paraphrase",
+    "diff",
+    "verbatim"
+  ]
+}
