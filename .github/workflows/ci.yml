@@ -1,0 +1,123 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: tests (${{ matrix.os }} / node ${{ matrix.node }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        node: ["20", "22"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Install dependencies
+        run: npm ci
+      - name: TypeScript build
+        run: npm run build
+      - name: Vitest
+        run: npx vitest run --reporter=default
+      - name: CLI smoke test (verbatim)
+        shell: bash
+        run: |
+          mkdir -p /tmp/fe-smoke
+          printf 'We absolutely must use Python 3.11. The build takes 73.4 seconds.\n' \
+            > /tmp/fe-smoke/source.txt
+          printf 'It might be the user could consider a programming language. About 70 seconds.\n' \
+            > /tmp/fe-smoke/rendered.txt
+          # The CLI exits 2 when there is a P2 numeric drift; smoke test
+          # that this happens.
+          set +e
+          node dist/cli.js check \
+            -s /tmp/fe-smoke/source.txt \
+            -r /tmp/fe-smoke/rendered.txt \
+            -t verbatim_quote \
+            -f json > /tmp/fe-smoke/out.json
+          rc=$?
+          set -e
+          [ "$rc" = "2" ] || { echo "expected rc=2 got $rc"; cat /tmp/fe-smoke/out.json; exit 1; }
+          # Validate the output is strict JSON.
+          python3 -c "import json; r=json.load(open('/tmp/fe-smoke/out.json')); assert r['hits']; print('hits=', len(r['hits']))"
+      - name: CLI smoke test (no drift => exit 0)
+        shell: bash
+        run: |
+          mkdir -p /tmp/fe-smoke2
+          printf 'Hello world.\n' > /tmp/fe-smoke2/source.txt
+          printf 'Hello world.\n' > /tmp/fe-smoke2/rendered.txt
+          node dist/cli.js check \
+            -s /tmp/fe-smoke2/source.txt \
+            -r /tmp/fe-smoke2/rendered.txt \
+            -t verbatim_quote \
+            -f json
+          [ "$?" = "0" ] || { echo "expected rc=0"; exit 1; }
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+      - run: npx tsc --noEmit -p tsconfig.json
+
+  package-shape:
+    name: package shape
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+      - run: npm run build
+      - name: pack and inspect
+        shell: bash
+        run: |
+          # Fail if the bundled tarball is missing the agent file or the
+          # dictionaries (regression guard for an empty `files:` field in
+          # package.json).
+          npm pack --dry-run --json > /tmp/pack.json
+          python3 -c "
+          import json
+          d = json.load(open('/tmp/pack.json'))
+          files = {f['path'] for f in d[0]['files']}
+          must_have = [
+            'dist/cli.js',
+            'agents/faithful-echo.md',
+            'dictionaries/quantifiers.yaml',
+            'dictionaries/hedges.yaml',
+            'dictionaries/hypernyms.yaml',
+            'README.md',
+            'LICENSE',
+          ]
+          missing = [m for m in must_have if m not in files]
+          assert not missing, ('package would ship without: ' + repr(missing))
+          print('package contains all required files')"
+
+  leak-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit for unintended user-specific identifiers
+        shell: bash
+        run: |
+          set -e
+          PATTERN_B64='KFxic3ZbMC05XXs0LDZ9XGJ8XGJ4c1swLTldezYsfVxifC9tbnQvYy9Vc2Vycy98MTkyXC4xNjhcLlswLTldK1wuWzAtOV0rKQ=='
+          PATTERN=$(printf '%s' "$PATTERN_B64" | base64 -d)
+          if grep -rEn "$PATTERN" --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=dist . ; then
+            echo "Audit failed: a likely user-specific identifier was found."
+            exit 1
+          fi
+          echo "leak audit clean"

@@ -1,0 +1,84 @@
+# Hedges: words/suffixes that soften a claim.  When the rendered version
+# contains one of these but the source did not, that's a P4 (hedge
+# insertion) hit.  When a hedge is present in the source and amplified in
+# the rendered version, that's also flagged.
+#
+# License: Apache-2.0
+
+ja:
+  # Modal hedges (often suffix-ish)
+  - かもしれません
+  - かもしれない
+  - かも
+  - だろう
+  - でしょう
+  - のかもしれない
+  - 思われます
+  - 思います
+  - 考えられます
+  - ような気がします
+  - ような気がする
+
+  # Epistemic hedges
+  - おそらく
+  - 多分
+  - たぶん
+  - 恐らく
+  - 一概には言えません
+  - 場合によっては
+  - 状況によっては
+  - 必ずしも
+  - 必ずしも〜ない
+
+  # Approximation
+  - 概ね
+  - だいたい
+  - 大体
+  - およそ
+  - ほぼ
+  - 約
+
+  # Politeness softeners that rewrite assertions
+  - と思いますが
+  - と感じます
+  - 個人的には
+  - 私見では
+
+en:
+  # Modal hedges
+  - perhaps
+  - maybe
+  - possibly
+  - probably
+  - apparently
+  - seemingly
+  - presumably
+  - reportedly
+  - allegedly
+  - supposedly
+
+  # Phrasal hedges
+  - it seems
+  - it appears
+  - it is possible
+  - it might be
+  - it could be
+  - one could argue
+  - it is sometimes said
+  - in some sense
+  - to some extent
+  - in many cases
+  - in most cases
+  - tend to
+  - tends to
+  - i think
+  - i believe
+  - in my opinion
+  - arguably
+
+  # Approximation
+  - roughly
+  - approximately
+  - about
+  - around
+  - more or less
