@@ -4,7 +4,7 @@
 > rounded the user's original wording.  A Claude Code agent + standalone
 > CLI.
 
-[![ci](https://github.com/OWNER/faithful-echo/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/faithful-echo/actions/workflows/ci.yml)
+[![ci](https://github.com/hinanohart/faithful-echo/actions/workflows/ci.yml/badge.svg)](https://github.com/hinanohart/faithful-echo/actions/workflows/ci.yml)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
 
 When an LLM rewrites your words — when summarising a complaint, restating
@@ -31,7 +31,7 @@ diagnosis only.
 ## 30-second install
 
 ```bash
-git clone https://github.com/OWNER/faithful-echo.git
+git clone https://github.com/hinanohart/faithful-echo.git
 cd faithful-echo
 npm install
 npm run build
