@@ -113,22 +113,32 @@ defaults to `info`).  The CLI's exit code is the worst severity seen.
 
 ## How it differs from related tools
 
-| Tool                                 | Purpose                                                                       |
-| ------------------------------------ | ----------------------------------------------------------------------------- |
-| `faithful-echo` (this)               | Deterministic source-vs-rendered drift detection.  Diagnoses, does not fix.   |
-| LLM-as-judge (DeepEval, Promptfoo)   | Judges by asking another LLM, no source ground truth needed.                  |
-| Generic critic agents                | Score quality / completeness; not focused on user-faithfulness specifically.  |
-| `diff` / `git diff --word-diff`      | Lexical diff; doesn't classify drifts by *kind*.                              |
+| Tool                                  | Layer / when                | What it checks                                          |
+| ------------------------------------- | --------------------------- | ------------------------------------------------------- |
+| `faithful-echo` (this)                | Post-hoc, deterministic     | Source vs rendered, classified into 7 named drifts.     |
+| Karpathy's K1 ("Think Before Coding") | **Pre-hoc**, prompt rule    | Forces the LLM to declare assumptions before writing.   |
+| Generic "critic" agents (e.g. harsh-critic) | Post-hoc, LLM-judge   | Quality / completeness / factual integrity gate.        |
+| DeepEval `FaithfulnessMetric`         | Post-hoc, LLM-judge         | RAG context vs output factual consistency.              |
+| Promptfoo `levenshtein`/`similar`/`regex` | Post-hoc, deterministic | Lexical similarity / contains / regex match.            |
+| `diff` / `git diff --word-diff`       | Post-hoc, deterministic     | Lexical diff with no drift classification.              |
 
-We layer on top of the rule output to give you a hit-by-rule structure
-that tools like the above can ingest.
+The closest layer is K1 (pre-hoc) — `faithful-echo` is the **post-hoc
+safety net** for the case where the LLM softened the user's wording
+*after* the assumption-explicit step, which K1 cannot catch.  The
+LLM-judge tools (DeepEval, Promptfoo's `llm-rubric`) work on a
+different axis (semantic / factual) and can be run alongside this one.
+
+If you only need lexical similarity you do not need this OSS — point
+Promptfoo at the same two strings.  `faithful-echo` is the right
+choice when you want the drift *classified by kind* (P1..P7) rather
+than collapsed into a single similarity score.
 
 ---
 
 ## Testing
 
 ```bash
-npm test           # vitest, 29 unit tests
+npm test           # vitest, 32 unit tests
 npm run typecheck  # tsc --noEmit, strict mode
 ```
 
