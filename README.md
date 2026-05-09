@@ -1,5 +1,7 @@
 # faithful-echo
 
+> **Disclaimer:** This is an **independent third-party tool**. It is **not affiliated with, endorsed by, or sponsored by Anthropic**. "Claude" and "Claude Code" are trademarks of Anthropic and are used here nominatively to identify the official CLI/product this tool integrates with.
+
 > Detect where the LLM softened, paraphrased, hedged, or numerically
 > rounded the user's original wording.  A Claude Code agent + standalone
 > CLI.
