@@ -5,8 +5,7 @@
 # (and the specific is gone), so a small dictionary of common pairs
 # is enough — we don't need a full hypernym tree.
 #
-# License: Apache-2.0
-
+# SPDX-License-Identifier: MIT
 pairs:
   # Programming languages → programming language
   - { specific: Python, abstract: programming language }

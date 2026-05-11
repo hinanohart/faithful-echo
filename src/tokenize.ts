@@ -7,7 +7,7 @@
  * (Latin word, number, katakana run, kanji run, hiragana run) and discard
  * whitespace and punctuation.  No external NLP dependency.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 export type TokenKind =
