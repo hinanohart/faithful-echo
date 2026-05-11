@@ -87,4 +87,4 @@ node dist/cli.js check \
 
 ## ライセンス
 
-[Apache-2.0](LICENSE)
+[MIT](LICENSE)

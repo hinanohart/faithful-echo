@@ -7,7 +7,7 @@
 > CLI.
 
 [![ci](https://github.com/hinanohart/faithful-echo/actions/workflows/ci.yml/badge.svg)](https://github.com/hinanohart/faithful-echo/actions/workflows/ci.yml)
-[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 When an LLM rewrites your words — when summarising a complaint, restating
 requirements, condensing a bug report, or "echoing back" instructions —
@@ -172,4 +172,4 @@ be missing the agent file or the dictionaries.
 
 ## License
 
-[Apache-2.0](LICENSE).
+[MIT](LICENSE).
