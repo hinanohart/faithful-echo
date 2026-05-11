@@ -12,7 +12,7 @@
  *   - ignoring tokens that appear in BOTH source and rendered,
  *   - ignoring single-letter tokens.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import type { Hit, Rule, RuleContext } from "../types.js";

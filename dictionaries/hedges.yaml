@@ -3,8 +3,7 @@
 # insertion) hit.  When a hedge is present in the source and amplified in
 # the rendered version, that's also flagged.
 #
-# License: Apache-2.0
-
+# SPDX-License-Identifier: MIT
 ja:
   # Modal hedges (often suffix-ish)
   - かもしれません

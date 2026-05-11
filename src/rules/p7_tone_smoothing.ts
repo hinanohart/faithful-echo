@@ -9,7 +9,7 @@
  * exclamation/question count.  It is intentionally simple; cases it
  * misses are caught by the LLM-judge layer at a higher cost.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import type { Hit, Rule, RuleContext } from "../types.js";
