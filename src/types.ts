@@ -11,7 +11,7 @@
  * a hit can be evaluated by a human (or an LLM judge) without the tool
  * having to make a value judgement on its own.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 export type TaskKind =

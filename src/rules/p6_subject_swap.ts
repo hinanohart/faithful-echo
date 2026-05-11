@@ -10,7 +10,7 @@
  * so we set the default severity to "info" and rely on the LLM-judge
  * layer to decide whether it matters in context.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import type { Hit, Rule, RuleContext } from "../types.js";

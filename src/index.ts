@@ -1,7 +1,7 @@
 /**
  * Programmatic API for faithful-echo.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 export { audit, RULES } from "./rules/index.js";

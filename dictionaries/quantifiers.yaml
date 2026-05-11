@@ -6,8 +6,7 @@
 # "very") are easy to drop accidentally during paraphrasing and would
 # inflate false positives if listed here as core intensifiers.
 #
-# License: Apache-2.0
-
+# SPDX-License-Identifier: MIT
 ja:
   # Absolute / categorical
   - 絶対

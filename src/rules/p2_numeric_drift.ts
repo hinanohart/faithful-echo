@@ -9,7 +9,7 @@
  * equivalent (so "1,000" and "1000" are the same), and we only fire when
  * a source number has *no* equal-valued counterpart in the rendered text.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import type { Hit, Rule, RuleContext } from "../types.js";
