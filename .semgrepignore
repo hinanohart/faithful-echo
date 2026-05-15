@@ -1,0 +1,6 @@
+
+# 2026-05-16 audit: Semgrep false-positive 除外
+# 動機: rule engine 内の非リテラル regex 構築は機能要件 (rule = データ駆動)
+src/rules/p3_quantifier_drop.ts
+src/rules/p4_hedge_insertion.ts
+src/rules/p5_abstraction.ts
