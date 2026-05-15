@@ -5,7 +5,7 @@
  * shipped as part of the npm package; they are not fetched from the
  * network at runtime.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import { readFileSync } from "node:fs";
