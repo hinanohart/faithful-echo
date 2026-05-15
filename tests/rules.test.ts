@@ -3,7 +3,7 @@
  * fictional (Alice / Bob / acme-corp / "fic_a" etc.) so the test
  * suite carries no user-specific information.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import { describe, expect, it } from "vitest";

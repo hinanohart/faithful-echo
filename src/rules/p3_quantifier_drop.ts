@@ -8,7 +8,7 @@
  * For "summarize" tasks this rule is muted, since dropping intensifiers
  * is part of summarising.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import type { Hit, Rule, RuleContext } from "../types.js";

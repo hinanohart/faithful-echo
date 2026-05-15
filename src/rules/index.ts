@@ -5,7 +5,7 @@
  * pair and aggregates the hits into a {@link Report}.  Each rule is a
  * pure function; the order rules run in is irrelevant to the result.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import type {
