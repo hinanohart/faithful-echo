@@ -14,7 +14,7 @@
  * In "summarize" / "translate" tasks abstraction is acceptable, so the
  * rule is muted there.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import type { Hit, Rule, RuleContext } from "../types.js";

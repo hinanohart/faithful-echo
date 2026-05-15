@@ -5,7 +5,7 @@
  * "it might be") that wasn't in the source, the model has softened the
  * user's claim.  That's a hit.
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import type { Hit, Rule, RuleContext } from "../types.js";

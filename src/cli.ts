@@ -13,7 +13,7 @@
  *   1  at least one `warn` hit
  *   2  at least one `error` hit (e.g. numeric drift)
  *
- * License: Apache-2.0
+ * SPDX-License-Identifier: MIT
  */
 
 import { readFileSync } from "node:fs";
