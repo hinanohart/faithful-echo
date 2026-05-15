@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Detect where an LLM softened, paraphrased, hedged, or numerically rounded a user's original wording. A Claude Code agent + standalone CLI.",
   "type": "module",
-  "license": "Apache-2.0",
+  "license": "MIT",
   "bin": {
     "faithful-echo": "./dist/cli.js"
   },
@@ -37,7 +37,7 @@
     "@typescript-eslint/parser": "^8.18.0",
     "eslint": "^9.16.0",
     "typescript": "^5.7.0",
-    "vitest": "^2.1.0"
+    "vitest": "^4.1.5"
   },
   "keywords": [
     "claude-code",
