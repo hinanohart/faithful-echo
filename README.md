@@ -173,3 +173,36 @@ be missing the agent file or the dictionaries.
 ## License
 
 [MIT](LICENSE).
+
+## FAQ: Why TypeScript? Why a separate repo from harsh-critic-agent?
+
+Two questions that come up enough to be worth answering in writing,
+because the 2026-05-09 R14 review re-litigated them and concluded the
+current shape was right.
+
+**Why TypeScript and not Python.** The Claude Code agent layer is
+language-agnostic: an `agents/<name>.md` file calls a CLI through
+`Bash`, and the CLI's implementation language is invisible to the
+agent's user. Picking TypeScript bought us a few specific things:
+the dictionaries in `dictionaries.yaml` are read by `js-yaml` without
+a parser dependency, the regex engine is the V8 one (faster and
+better-spec-compliant than CPython's `re` for the unicode-aware
+boundaries we need), and there is no external NLP dependency at all
+(no `tiktoken`, no `sentencepiece`). Switching to Python would buy
+the user nothing — the CLI invocation is the same shape — and would
+cost ~1.4 K LOC of rewrite plus a CI matrix change. If you only have
+Python on the box, `nvm install 22` is 30 seconds and you never
+think about it again.
+
+**Why a separate repo from `harsh-critic-agent`.** They scope
+differently. `harsh-critic-agent` is a 330-line `agents/*.md` review
+prompt with no CI and no build — a prompt artefact. `faithful-echo`
+is 1.4 K LOC of TypeScript with 32 unit tests, an npm package shape,
+and a matrix CI pipeline. Folding the latter into the former
+destroys the simplicity of `harsh-critic-agent` (you would no longer
+be able to install it as a single markdown file). Folding the
+former into the latter makes the prompt repo carry a Node toolchain
+it doesn't otherwise need. We tried both directions on paper; both
+made the simpler tool harder to adopt.
+
+If you want both at once, install both — that's the supported flow.
